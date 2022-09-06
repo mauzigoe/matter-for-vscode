@@ -17,11 +17,12 @@ The packages were installed via:
 ```
 apt install nodejs vscode
 ```
-
-The repository was initially created with `yeoman` with a generator for `vscode`.
-
 - npm==8.18.0
 - vscode>=1.71.0
+
+The repository was initially created with `yeoman` with a generator `code` provided by `vscode`. See [here](https://code.visualstudio.com/api/get-started/your-first-extension).
+
+
 
 ## Extension Settings
 
