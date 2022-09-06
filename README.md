@@ -1,6 +1,6 @@
-# matter-for-vscode
+# MatTer-for-vscode
 
-MatTer for vscode is an extension which lets you spawn a matlab terminal and run matlab scripts in vscode . 
+`MatTer for vscode` is an extension which lets you spawn a matlab terminal and run matlab scripts in vscode . 
 This project is in early development.
 
 ## Features
@@ -30,7 +30,7 @@ Default settings are hardcoded right now.
 
 ##  Issues
 
-This project is in early development so issue are expected. Feel free to open an issue if you experience any problems. 
+This project is in early development so issues are expected. Feel free to open an issue if you experience any problems. 
 
 ## Release Notes
 
