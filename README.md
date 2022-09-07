@@ -36,4 +36,4 @@ This project is in early development so issues are expected. Feel free to open a
 
 ### 0.1.0
 
-Initial release of `MatTer for vscode`
+Initial release of `matter for vscode`
