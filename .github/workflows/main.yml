@@ -4,7 +4,7 @@ on:
       - main
   release:
     types:
-    - prereleased
+    - created
 
 jobs:
   build_and_publish:
