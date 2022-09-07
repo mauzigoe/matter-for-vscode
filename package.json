@@ -8,7 +8,12 @@
   },
   "categories": [
     "Other"
-  ],
+  ],  
+  "repository": {
+    "type": "git",
+    "url": "github:mauzigoe/matter-for-vscode"
+  },
+  "license" : "BSD-3-Clause",
   "activationEvents": [
     "onCommand:matter-for-vscode.spawnMatlabTerminal",
     "onCommand:matter-for-vscode.runMatlabFile"
