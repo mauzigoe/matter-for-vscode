@@ -1,4 +1,4 @@
 matlab/
 node_modules/
 out/
-matter-for-vscode-*.vsix
+*.vsix
