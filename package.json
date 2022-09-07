@@ -9,6 +9,7 @@
   "categories": [
     "Other"
   ],  
+  "publisher": "mauzigoe",
   "repository": {
     "type": "git",
     "url": "github:mauzigoe/matter-for-vscode"
