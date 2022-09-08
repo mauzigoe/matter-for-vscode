@@ -4,12 +4,16 @@ All notable changes to the "matter-for-vscode" extension will be documented in t
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.1.0] - 2020-09-06
-### Added
-- functionality to spawn a matlab terminal in vscode
-- functionality to run matlab scripts in vscode
-
 ## [0.1.3] - 2020-09-06
+
 ### Added
+
 - icon for vscode marketplace
 - changed name in vscode marketplace
+
+## [0.1.0] - 2020-09-06
+
+### Added
+
+- functionality to spawn a matlab terminal in vscode
+- functionality to run matlab scripts in vscode
