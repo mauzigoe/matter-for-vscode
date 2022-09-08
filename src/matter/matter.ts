@@ -8,7 +8,7 @@ export class Matter implements MatlabTerminal{
     static terminalSettings: vscode.TerminalOptions = { 
         name : "Matlab Terminal",
         shellPath: "/usr/bin/env",
-        shellArgs: ["matlab", "-nodesktop"]
+        shellArgs: ["matlab", "-nodesktop", "-nosplash"]
     }
     public terminal: vscode.Terminal;
     constructor(matter: MatlabTerminal){
