@@ -19,7 +19,7 @@
     "onCommand:matter-for-vscode.spawnMatlabTerminal",
     "onCommand:matter-for-vscode.runMatlabFile"
   ],
-  "logo" : "images/logo.png",
+  "icon" : "images/logo.png",
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
