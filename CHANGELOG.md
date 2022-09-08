@@ -8,3 +8,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Added
 - functionality to spawn a matlab terminal in vscode
 - functionality to run matlab scripts in vscode
+
+## [0.1.3] - 2020-09-06
+### Added
+- icon for vscode marketplace
+- changed name in vscode marketplace

@@ -1,8 +1,8 @@
 {
   "name": "matter-for-vscode",
-  "displayName": "MatTer for vscode",
-  "description": "Matlab Terminal for vscode",
-  "version": "0.1.2",
+  "displayName": "MatTer for VS Code",
+  "description": "Matlab Terminal for VS Code",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.71.0"
   },
