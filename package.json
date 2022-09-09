@@ -33,7 +33,42 @@
         "command": "matter-for-vscode.spawnMatlabTerminal",
         "title": "Spawn a Matlab Terminal"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "MatTer for VS Code",
+      "properties": {
+        "getLicenseOption.isUsed" : {
+          "type" : "boolean",
+          "default" : false,
+          "description": "Specify location of certificate"
+        },
+        "getLicenseOption.path" : {
+          "type" : "string",
+          "default" : "",
+          "pattern": "^(.+)\/([^\/]+)$",
+          "description": "Path of certificate"
+        },
+        "getLogfileOption.isUsed" : {
+          "type" : "boolean",
+          "default" : false,
+          "description": "Specify location of logfile"
+        },
+        "getLogfileOption.path" : {
+          "type" : "string",
+          "default" : "",
+          "pattern": "^(.+)\/([^\/]+)$",
+          "description": "Path of logfile"
+        },
+        "setMatlabFile" : {
+          "type": "array",
+          "description": "testing type object.",
+          "items": {
+            "type":"string",
+            "pattern": "^(.+)\/([^\/]+)$"
+          }
+        }
+      } 
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
