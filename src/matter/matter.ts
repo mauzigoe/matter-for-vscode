@@ -29,7 +29,7 @@ export class Matter {
         this.terminal = vscode.window.createTerminal(terminalSettings);
     }
 
-    public getTerminalIfNotExisting(): void {
+    public createTerminalIfNotExisting(): void {
         if (this.terminal.exitStatus) {
 			if (this.terminal.exitStatus.code != 0){
 				vscode.window.showErrorMessage(`matlab terminal exited with error: ${this.terminal.exitStatus.reason}`)

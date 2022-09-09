@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('matter-for-vscode.runMatlabFile', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		matterInstance.getTerminalIfNotExisting()
+		matterInstance.createTerminalIfNotExisting()
 		matterInstance.runFile();
 		matterInstance.terminal.show()
 	}));
@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('matter-for-vscode.spawnMatlabTerminal', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		matterInstance.getTerminalIfNotExisting();
+		matterInstance.createTerminalIfNotExisting();
 		matterInstance.terminal.show()
 	}));
 
