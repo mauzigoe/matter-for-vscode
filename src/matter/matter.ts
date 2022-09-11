@@ -1,85 +1,145 @@
 import { urlToOptions } from '@vscode/test-electron/out/util';
 import { log } from 'console';
+import { close } from 'fs';
+import { type } from 'os';
 import * as vscode from 'vscode';
 
+type MatlabTerminalOption = { 
+    matlabExecutablePath : string,
+    licensePath : string ,
+    logfilePath : string
+};
+
+type MatlabTerminalOptionList = Array<MatlabTerminalOption> ;
+
+type MatlabTerminalState = { terminal: MatlabTerminal, option: MatlabTerminalOption} 
+
+type MatlabTerminal = vscode.Terminal;
+
+type MatlabTerminalList = Array<MatlabTerminalState> 
+
+const defaultMatlabTerminalOption : MatlabTerminalOption = {
+    matlabExecutablePath : "matlab",
+    licensePath : "",
+    logfilePath : ""
+}
+const defaultMatlabTerminalOptionList: MatlabTerminalOptionList = [
+    defaultMatlabTerminalOption
+]
+
 export class Matter {
-    public terminal: vscode.Terminal;
+    public terminalList: MatlabTerminalList;
 
     constructor(){
-
         // configuraiton wir irgendwie nicht initialisiert
-        let options : Function[] = [this.getNoDesktopOption,this.getNoSplashOption, this.getLicenseOption, this.getLogfileOption];
-        let matlabArgs: any[] = this.getOptionsForMatlabTerminal(options);
-        let terminalSettings =  { 
-            name : "Matlab Terminal",
-            shellPath: "/usr/bin/env",
-            shellArgs: ["matlab",  ...matlabArgs]
-        }
-        this.terminal = vscode.window.createTerminal(terminalSettings); 
+        this.terminalList = [];
     };
 
-    private createMatlabTerminal(): void {
-        let options : Function[] = [this.getNoDesktopOption,this.getNoSplashOption, this.getLicenseOption, this.getLogfileOption];
-        let matlabArgs: string[] = this.getOptionsForMatlabTerminal(options)
-        let terminalSettings =  { 
-            name : "Matlab Terminal",
-            shellPath: "/usr/bin/env",
-            shellArgs: ["matlab",  ...matlabArgs]
+    public updateMatlabTerminalList(): void {
+        let optionsList : MatlabTerminalOptionList | undefined = getOptionListForMatlabTerminal() 
+        log('create Terminals according to OptionList')
+        this.mergeMatlabTerminalListAndOptionList(optionsList)
+    }
+
+    public selectedTerminalExistsInList(terminal: MatlabTerminal): boolean {
+        if(this.terminalList.flatMap(terminalState => terminalState.terminal).find( terminalFromList => terminalFromList.processId == terminal.processId)){
+            return true
         }
-        this.terminal = vscode.window.createTerminal(terminalSettings);
-    }
-
-    public createTerminalIfNotExisting(): void {
-        if (this.terminal.exitStatus) {
-			if (this.terminal.exitStatus.code != 0){
-				vscode.window.showErrorMessage(`matlab terminal exited with error: ${this.terminal.exitStatus.reason}`)
-			}
-			else{
-				vscode.window.showInformationMessage("matlab exited with error Code 0\nSpawn new matlab shell")
-				this.createMatlabTerminal();
-			}
-		}
-    }
-
-    public runFile(){
-        let matlabFile: string = vscode.window.activeTextEditor?.document.getText() ?? "";
-        this.createTerminalIfNotExisting();
-        this.terminal.sendText(matlabFile);
-        this.terminal.show();
-
-    };
-
-    public getOptionsForMatlabTerminal(options : Function[]){
-        return options.map(this.getOptions).filter(option => option!=undefined)
-    }
-
-    public getOptions(optionFunction: Function) {
-        return optionFunction()
-    }
-
-    public getNoDesktopOption() {
-        return "-nodesktop";
-    }
-    
-    public getNoSplashOption() {
-        return "-nosplash";
-    }
-
-    public getLicenseOption() {
-        let isUsed: any = vscode.workspace.getConfiguration().get('getLicenseOption.isUsed');
-        let path: any = vscode.workspace.getConfiguration().get('getLicenseOption.path');
-        if (isUsed) {
-            return `-c ${path}`
+        else{
+            return false
         }
-        return undefined
     }
 
-    public getLogfileOption() {
-        let isUsed: any = vscode.workspace.getConfiguration().get('getLogfileOption.isUsed');
-        let path: any = vscode.workspace.getConfiguration().get('getLogfileOption.path');
-        if (isUsed) {
-            return `-logfile ${path}`
+    private mergeMatlabTerminalListAndOptionList(
+        optionList: MatlabTerminalOptionList | undefined
+            ) {
+        if (optionList && optionList.length !=0){
+            // create Terminals according to OptionList
+            // close excess terminals if more terminal are saved than in optionList (aka config)  
+            if (this.terminalList.length > optionList.length) {
+                let terminalExcessList: MatlabTerminalList = this.terminalList.slice(optionList.length);
+                terminalExcessList.forEach(closeTerminal);
+            }
+
+            // try to preserve Terminals if terminal have same option at equal listIndex  
+            this.terminalList = optionList.map(
+                (option: MatlabTerminalOption, optionListIndex: number) => {
+                    //create if index exceeds terminalList or option are unequal 
+                    if ((optionListIndex >= this.terminalList.length) || (this.terminalList[optionListIndex].option != option)) {
+                        if (this.terminalList.length > optionListIndex){
+                            closeTerminal(this.terminalList[optionListIndex])
+                        }
+                        return createMatlabTerminalState(option)
+                    }
+                    else {
+                        return this.terminalList[optionListIndex]
+                    }
+                }
+            )
+            
         }
-        return undefined
+        else {
+            this.terminalList.forEach(closeTerminal)
+            let option = defaultMatlabTerminalOption
+            this.terminalList = [ createMatlabTerminalState(option) ]
+        }
     }
+}
+
+export function runFile(terminal: MatlabTerminal){
+    // maybe improve, better guarantee for exeistence of activeTextEditor
+    let matlabFile = vscode.window.activeTextEditor?.document.getText() ?? ""
+    terminal.sendText(matlabFile);
+    terminal.show();
+};
+
+
+function closeTerminal(terminalState: MatlabTerminalState){
+    let terminal: vscode.Terminal = terminalState.terminal;
+    terminalState.terminal.dispose()
+}
+
+function createMatlabTerminalState(option: MatlabTerminalOption): MatlabTerminalState {
+    let matlabCmd: string[] = getMatlabCmdFrom(option)
+    let terminalSettings =  { 
+        name : "Matlab Terminal",
+        shellPath: "/usr/bin/env",
+        shellArgs: matlabCmd
+    }
+    return {terminal: vscode.window.createTerminal(terminalSettings), option: option}
+}
+
+function getOptionListForMatlabTerminal(): MatlabTerminalOptionList | undefined {
+    // if default option is used, this is due to empty config. Old Terminal should then be closed.
+    return vscode.workspace.getConfiguration("").get('setMatlabExecutable') 
+}
+
+function getNoDesktopOption(option: MatlabTerminalOption) {
+    return "-nodesktop";
+}
+
+function getNoSplashOption(option: MatlabTerminalOption) {
+    return "-nosplash";
+}
+
+function getLicenseOption(option: MatlabTerminalOption) {
+    if (option.licensePath) {
+        return `-c ${option.licensePath}`
+    }
+    return undefined
+}
+
+function getLogfileOption(option: MatlabTerminalOption) {
+    if (option.logfilePath) {
+        return `-logfile ${option.logfilePath}`
+    }
+    return ""
+}
+
+function getMatlabCmdFrom(option: MatlabTerminalOption): string[]{
+    //option.matlabExecutablePath
+    let optionsUsed : Function[] = [getNoDesktopOption,getNoSplashOption, getLicenseOption, getLogfileOption];
+    let matlabArg : string[] = optionsUsed.map( function(optionFunc){return optionFunc(option)}).filter( i => i)   
+
+    return  [option.matlabExecutablePath].concat(matlabArg) 
 }
