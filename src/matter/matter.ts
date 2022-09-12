@@ -1,10 +1,10 @@
 import { urlToOptions } from '@vscode/test-electron/out/util';
-import { log } from 'console';
 import { close } from 'fs';
 import { type } from 'os';
 import * as vscode from 'vscode';
 
 type MatlabTerminalOption = { 
+    terminalName : string,
     matlabExecutablePath : string,
     licensePath : string ,
     logfilePath : string
@@ -19,6 +19,7 @@ type MatlabTerminal = vscode.Terminal;
 type MatlabTerminalList = Array<MatlabTerminalState> 
 
 const defaultMatlabTerminalOption : MatlabTerminalOption = {
+    terminalName : "matlab",
     matlabExecutablePath : "matlab",
     licensePath : "",
     logfilePath : ""
@@ -37,7 +38,6 @@ export class Matter {
 
     public updateMatlabTerminalList(): void {
         let optionsList : MatlabTerminalOptionList | undefined = getOptionListForMatlabTerminal() 
-        log('create Terminals according to OptionList')
         this.mergeMatlabTerminalListAndOptionList(optionsList)
     }
 
@@ -101,8 +101,10 @@ function closeTerminal(terminalState: MatlabTerminalState){
 
 function createMatlabTerminalState(option: MatlabTerminalOption): MatlabTerminalState {
     let matlabCmd: string[] = getMatlabCmdFrom(option)
+    let matlabName = option.terminalName ?? option.matlabExecutablePath
+
     let terminalSettings =  { 
-        name : "Matlab Terminal",
+        name : matlabName,
         shellPath: "/usr/bin/env",
         shellArgs: matlabCmd
     }

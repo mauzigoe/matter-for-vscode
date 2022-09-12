@@ -8,10 +8,11 @@ This project is in early development.
 This extension provides following feature:
 - create a multiple `matlab` terminals in vscode
   - configure each `matlab` terminal individually. Options are
-    - Path of Executable 
-    - specify license
-    - specify logfile
-  - you don't have to use the setting, but can use a default shell.
+    - name of terminal
+    - path of executable 
+    - path of license file
+    - path of logfile
+  - you don't have to use the settings, but can use a default shell.
 - run `matlab` scripts in aktive Terminal
 
 ## Requirements
@@ -27,8 +28,6 @@ Following packages (install via `npm`) were used.
 - `vscode`>=1.71.0
 
 The repository was initially created with `yeoman` with a generator `code` provided by `vscode`. See [here](https://code.visualstudio.com/api/get-started/your-first-extension).
-
-
 
 ## Extension Settings
 

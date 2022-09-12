@@ -43,6 +43,10 @@
           "items": {
             "type": "object",
             "properties": {
+              "terminalName" :{
+                "type": "string",
+                "default": "matlab"
+              },
               "matlabExecutablePath" :{
                 "type": "string",
                 "pattern": "^(.+)\/([^\/]+)$",
