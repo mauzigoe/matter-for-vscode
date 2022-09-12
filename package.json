@@ -2,7 +2,7 @@
   "name": "matter-for-vscode",
   "displayName": "MatTer for VS Code",
   "description": "Matlab Terminal for VS Code",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -33,7 +33,40 @@
         "command": "matter-for-vscode.spawnMatlabTerminal",
         "title": "Spawn a Matlab Terminal"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "MatTer for VS Code",
+      "properties": {
+        "setMatlabExecutable" : {
+          "type": "array",
+          "description": "testing type object.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "terminalName" :{
+                "type": "string",
+                "default": "matlab"
+              },
+              "matlabExecutablePath" :{
+                "type": "string",
+                "pattern": "^(.+)\/([^\/]+)$",
+                "default": ""
+              },
+              "licensePath" :{
+                "type": "[string, null]",
+                "pattern": "^(.+)\/([^\/]+)$",
+                "default" : null
+              },
+              "logfilePath" : {
+                "type" : ["string",null],
+                "pattern": "^(.+)\/([^\/]+)$",
+                "default" : null
+              }
+            }
+          }
+        }
+      } 
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
