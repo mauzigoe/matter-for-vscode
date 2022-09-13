@@ -14,13 +14,13 @@ export function activate(context: vscode.ExtensionContext) {
 				matter.runFile(terminal)
 			}
 			else {
-				vscode.window.showInformationMessage(`Terminal not recognized by Extension. Select different Terminal. 
-				Check the Name of your Terminal and compare it with your configuraiton. `)
+				vscode.window.showInformationMessage(`Terminal not recognized by extension. Select different terminal. 
+				Check the name of your terminal and compare it with your configuration. `)
 			}
 		}
 		else{
 			vscode.window.showInformationMessage(`No Terminal is has been interacted with.\n
-			 Click on a Matlab Terminal on which your Matlab-file should be executed.`);
+			 Click on a matlab terminal in which your matlab file should be executed.`);
 		}
 	}));
 

@@ -4,6 +4,11 @@ All notable changes to the "matter-for-vscode" extension will be documented in t
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.6] - 2020-09-13
+
+new features:
+- run matlab file in directory of editor
+
 ## [0.1.5] - 2020-09-13
 
 new features:
