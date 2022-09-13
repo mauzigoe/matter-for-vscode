@@ -37,9 +37,9 @@
     "configuration": {
       "title": "MatTer for VS Code",
       "properties": {
-        "setMatlabExecutable" : {
+        "setMatlabExecutables" : {
           "type": "array",
-          "description": "testing type object.",
+          "description": "Configure multiple terminals via a list of objects. \nEach objects can contain following options:\n- terminalName\n- matlabExecutablePath\n- licensePath\n- logfilePath",
           "items": {
             "type": "object",
             "properties": {
