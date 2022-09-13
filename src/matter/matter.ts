@@ -122,7 +122,7 @@ function createMatlabTerminalState(option: MatlabTerminalOption): MatlabTerminal
 
 function getOptionListForMatlabTerminal(): MatlabTerminalOptionList | undefined {
     // if default option is used, this is due to empty config. Old Terminal should then be closed.
-    return vscode.workspace.getConfiguration("").get('setMatlabExecutable') 
+    return vscode.workspace.getConfiguration("").get('setMatlabExecutables') 
 }
 
 function getNoDesktopOption(option: MatlabTerminalOption) {

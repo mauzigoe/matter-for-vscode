@@ -7,14 +7,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.1.5] - 2020-09-13
 
 new features:
-- restart closed terminal according to settings.json
-
+- restart closed terminal according to `settings.json`
+- add description to setting `set Matlab Executables`
 
 ## [0.1.4] - 2020-09-11
 
 new features:
 - create a multiple `matlab` terminals and configure each individually
-- run Matlab file in currenly used terminal 
+- run matlab file in currenly used terminal 
 
 ## [0.1.3] - 2020-09-06
 
