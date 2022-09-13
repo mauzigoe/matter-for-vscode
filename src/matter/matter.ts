@@ -1,8 +1,4 @@
-import { urlToOptions } from '@vscode/test-electron/out/util';
-import { close } from 'fs';
-import { type } from 'os';
 import { dirname } from 'path';
-import { env } from 'process';
 import * as vscode from 'vscode';
 
 type MatlabTerminalOption = { 
