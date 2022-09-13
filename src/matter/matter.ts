@@ -30,7 +30,6 @@ export class Matter {
     public terminalList: MatlabTerminalList;
 
     constructor(){
-        // configuraiton wir irgendwie nicht initialisiert
         this.terminalList = [];
     };
 
