@@ -6,25 +6,27 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.1.6] - 2020-09-13
 
-new features:
+### Added
 - run matlab file in directory of editor
+
+### Fixed
+- fix bug from issue 22
 
 ## [0.1.5] - 2020-09-13
 
-new features:
+### Added
 - restart closed terminal according to `settings.json`
 - add description to setting `set Matlab Executables`
 
 ## [0.1.4] - 2020-09-11
 
-new features:
+### Added
 - create a multiple `matlab` terminals and configure each individually
 - run matlab file in currenly used terminal 
 
 ## [0.1.3] - 2020-09-06
 
 ### Added
-
 - icon for vscode marketplace
 - changed name in vscode marketplace
 
