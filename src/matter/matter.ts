@@ -1,5 +1,6 @@
 import { dirname } from 'path';
 import * as vscode from 'vscode';
+import { isEqual } from "lodash";
 
 type MatlabTerminalOption = { 
     terminalName : string,
@@ -60,20 +61,21 @@ export class Matter {
                 terminalExcessList.forEach(closeTerminal);
             }
 
-            // try to preserve Terminals if terminal have same option at equal listIndex  
+            // try to preserve terminals if terminal from terminalList is the same as option from optionList at equal optionListIndex  
             this.terminalList = optionList.map(
-                (option: MatlabTerminalOption, optionListIndex: number) => {
-                    //create if index exceeds terminalList or option are unequal 
-                    if ((optionListIndex >= this.terminalList.length) || (this.terminalList[optionListIndex].option != option  || this.terminalList[optionListIndex].terminal.exitStatus)) {
-                        
-                        if (this.terminalList.length > optionListIndex){
-                            printMessageIfTerminalHasExistedErroneous(this.terminalList[optionListIndex])
-                            closeTerminal(this.terminalList[optionListIndex])
-                        }
+                (option: MatlabTerminalOption, optionListIndex: number) => { 
+                    if ((optionListIndex >= this.terminalList.length)) {
                         return createMatlabTerminalState(option)
                     }
                     else {
-                        return this.terminalList[optionListIndex]
+                        if ((this.terminalList[optionListIndex].terminal.exitStatus) || !isEqual(this.terminalList[optionListIndex].option,option)) {
+                            printMessageIfTerminalHasExistedErroneous(this.terminalList[optionListIndex])
+                            closeTerminal(this.terminalList[optionListIndex])
+                            return createMatlabTerminalState(option)
+                        }
+                        else{
+                            return this.terminalList[optionListIndex]
+                        }
                     }
                 }
             )

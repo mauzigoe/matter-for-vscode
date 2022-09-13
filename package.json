@@ -10,18 +10,18 @@
     "Extension Packs",
     "Programming Languages",
     "Other"
-  ],  
+  ],
   "publisher": "LeonFrangen",
   "repository": {
     "type": "git",
     "url": "github:mauzigoe/matter-for-vscode"
   },
-  "license" : "BSD-3-Clause",
+  "license": "BSD-3-Clause",
   "activationEvents": [
     "onCommand:matter-for-vscode.spawnMatlabTerminal",
     "onCommand:matter-for-vscode.runMatlabFile"
   ],
-  "icon" : "images/logo.png",
+  "icon": "images/logo.png",
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -37,35 +37,38 @@
     "configuration": {
       "title": "MatTer for VS Code",
       "properties": {
-        "setMatlabExecutables" : {
+        "setMatlabExecutables": {
           "type": "array",
           "description": "Configure multiple terminals via a list of objects. \nEach objects can contain following options:\n- terminalName\n- matlabExecutablePath\n- licensePath\n- logfilePath",
           "items": {
             "type": "object",
             "properties": {
-              "terminalName" :{
+              "terminalName": {
                 "type": "string",
                 "default": "matlab"
               },
-              "matlabExecutablePath" :{
+              "matlabExecutablePath": {
                 "type": "string",
-                "pattern": "^(.+)\/([^\/]+)$",
+                "pattern": "^(.+)/([^/]+)$",
                 "default": ""
               },
-              "licensePath" :{
+              "licensePath": {
                 "type": "[string, null]",
-                "pattern": "^(.+)\/([^\/]+)$",
-                "default" : null
+                "pattern": "^(.+)/([^/]+)$",
+                "default": null
               },
-              "logfilePath" : {
-                "type" : ["string",null],
-                "pattern": "^(.+)\/([^\/]+)$",
-                "default" : null
+              "logfilePath": {
+                "type": [
+                  "string",
+                  null
+                ],
+                "pattern": "^(.+)/([^/]+)$",
+                "default": null
               }
             }
           }
         }
-      } 
+      }
     }
   },
   "scripts": {
@@ -80,6 +83,8 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
+    "@types/lodash": "^4.14.185",
+    "@types/lodash.isequal": "^4.5.6",
     "@types/mocha": "^9.1.1",
     "@types/node": "^16.11.57",
     "@types/vscode": "^1.71.0",
@@ -91,5 +96,8 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "vsce": "^2.11.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
