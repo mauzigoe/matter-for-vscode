@@ -65,8 +65,10 @@ export class Matter {
             this.terminalList = optionList.map(
                 (option: MatlabTerminalOption, optionListIndex: number) => {
                     //create if index exceeds terminalList or option are unequal 
-                    if ((optionListIndex >= this.terminalList.length) || (this.terminalList[optionListIndex].option != option)) {
+                    if ((optionListIndex >= this.terminalList.length) || (this.terminalList[optionListIndex].option != option  || this.terminalList[optionListIndex].terminal.exitStatus)) {
+                        
                         if (this.terminalList.length > optionListIndex){
+                            printMessageIfTerminalHasExistedErroneous(this.terminalList[optionListIndex])
                             closeTerminal(this.terminalList[optionListIndex])
                         }
                         return createMatlabTerminalState(option)
@@ -93,6 +95,13 @@ export function runFile(terminal: MatlabTerminal){
     terminal.show();
 };
 
+function printMessageIfTerminalHasExistedErroneous(terminalState: MatlabTerminalState) {
+    if (terminalState.terminal.exitStatus ){
+        if (terminalState.terminal.exitStatus?.code !== 0) {
+            vscode.window.showInformationMessage(`matlab terminal '${terminalState.terminal.name}' has excited with error. \n error message ${terminalState.terminal.exitStatus.reason}`)            
+        }
+    }
+}
 
 function closeTerminal(terminalState: MatlabTerminalState){
     let terminal: vscode.Terminal = terminalState.terminal;

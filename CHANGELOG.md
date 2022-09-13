@@ -4,6 +4,12 @@ All notable changes to the "matter-for-vscode" extension will be documented in t
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.5] - 2020-09-13
+
+new features:
+- restart closed terminal according to settings.json
+
+
 ## [0.1.4] - 2020-09-11
 
 new features:
