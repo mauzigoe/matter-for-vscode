@@ -1,6 +1,4 @@
-import { urlToOptions } from '@vscode/test-electron/out/util';
-import { close } from 'fs';
-import { type } from 'os';
+import { dirname } from 'path';
 import * as vscode from 'vscode';
 
 type MatlabTerminalOption = { 
@@ -53,7 +51,9 @@ export class Matter {
     private mergeMatlabTerminalListAndOptionList(
         optionList: MatlabTerminalOptionList | undefined
             ) {
+
         if (optionList && optionList.length !=0){
+            
             // create Terminals according to OptionList
             // close excess terminals if more terminal are saved than in optionList (aka config)  
             if (this.terminalList.length > optionList.length) {
@@ -91,14 +91,21 @@ export class Matter {
 export function runFile(terminal: MatlabTerminal){
     // maybe improve, better guarantee for exeistence of activeTextEditor
     let matlabFile = vscode.window.activeTextEditor?.document.getText() ?? ""
-    terminal.sendText(matlabFile);
-    terminal.show();
+        if (vscode.window.activeTextEditor){
+            let activeTextEditorPath = dirname(vscode.window.activeTextEditor.document.fileName )
+            terminal.sendText(`cd ${activeTextEditorPath}`)
+            terminal.sendText(matlabFile);
+            terminal.show();    
+    }
+    else {
+        vscode.window.showWarningMessage("Active editor doesn't exist. Can't run matlab file. Please click on an editor (an opened file).")
+    }
 };
 
 function printMessageIfTerminalHasExistedErroneous(terminalState: MatlabTerminalState) {
     if (terminalState.terminal.exitStatus ){
         if (terminalState.terminal.exitStatus?.code !== 0) {
-            vscode.window.showInformationMessage(`matlab terminal '${terminalState.terminal.name}' has excited with error. \n error message ${terminalState.terminal.exitStatus.reason}`)            
+            vscode.window.showInformationMessage(`matlab terminal '${terminalState.terminal.name}' has exited with error. error message ${terminalState.terminal.exitStatus.reason}`)            
         }
     }
 }
@@ -122,7 +129,7 @@ function createMatlabTerminalState(option: MatlabTerminalOption): MatlabTerminal
 
 function getOptionListForMatlabTerminal(): MatlabTerminalOptionList | undefined {
     // if default option is used, this is due to empty config. Old Terminal should then be closed.
-    return vscode.workspace.getConfiguration("").get('setMatlabExecutables') 
+    return vscode.workspace.getConfiguration().get('setMatlabExecutables') 
 }
 
 function getNoDesktopOption(option: MatlabTerminalOption) {
