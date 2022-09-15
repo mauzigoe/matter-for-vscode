@@ -4,6 +4,14 @@ All notable changes to the "matter-for-vscode" extension will be documented in t
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.7] - 2020-09-16
+
+### Added 
+- tutorial
+
+### Fixed
+- bug form issue 29
+
 ## [0.1.6] - 2020-09-13
 
 ### Added
