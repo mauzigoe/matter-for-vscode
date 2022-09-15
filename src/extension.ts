@@ -9,6 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		matterInstance.updateMatlabTerminalList()
 		let terminal = vscode.window.activeTerminal;
+		console.log(terminal)
 		if(terminal) {
 			if (matterInstance.selectedTerminalExistsInList(terminal)){
 				matter.runFile(terminal)

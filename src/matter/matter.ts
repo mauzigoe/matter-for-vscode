@@ -40,6 +40,7 @@ export class Matter {
     }
 
     public selectedTerminalExistsInList(terminal: MatlabTerminal): boolean {
+        console.log(terminal)
         if(this.terminalList.flatMap(terminalState => terminalState.terminal).find( terminalFromList => terminalFromList.processId == terminal.processId)){
             return true
         }
@@ -82,9 +83,13 @@ export class Matter {
             
         }
         else {
-            this.terminalList.forEach(closeTerminal)
+            this.terminalList.slice(1).forEach(closeTerminal)
             let option = defaultMatlabTerminalOption
-            this.terminalList = [ createMatlabTerminalState(option) ]
+            let terminal = this.terminalList[0] ?? undefined
+            if ((terminal && terminal.option !== option) || !terminal){
+                closeTerminal(terminal)
+                this.terminalList = [ createMatlabTerminalState(option) ]
+            }
         }
     }
 }
