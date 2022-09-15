@@ -1,4 +1,4 @@
-# matter-for-vscode
+# MatTer for VS Code
 
 `matter for vscode` is an extension which lets you spawn a `matlab` terminal and run `matlab` scripts in vscode . 
 This project is in early development.
@@ -17,7 +17,7 @@ This extension provides following feature:
 
 ## Requirements
 
-This project and its management was tested on `ubuntu-20.04.5 LTS`.
+This project and its management was tested on `ubuntu-20.04.5 LTS`, but it should work on `linux` generally. It was also used on `macOS`.
 
 The packages were installed via:
 ```
@@ -27,11 +27,26 @@ Following packages (install via `npm`) were used.
 - `npm`==8.18.0
 - `vscode`>=1.71.0
 
-The repository was initially created with `yeoman` with a generator `code` provided by `vscode`. See [here](https://code.visualstudio.com/api/get-started/your-first-extension).
+The extension was initially created with `yeoman` with a generator `code` provided by `vscode`. See [here](https://code.visualstudio.com/api/get-started/your-first-extension).
+
+## Tutorial
+
+I wrote a small tutorial on how to use the extension. The tutorial can be found [here](doc/TUTORIAL.md).
 
 ## Extension Settings
 
-Default settings are hardcoded right now. 
+With version `0.1.4` settings are included:
+
+The following Settings are available:
+- `setMatlabExecutables`
+  - provide a list of configurations to define a matlab terminals for each 
+  - The options of one configuration are:
+    - `matlabExecutablePath`: path of the matlab executable (mandatory)
+    - `licensePath`: path of the license file (ommitable)
+    - `logfilePath`: path of the logfile (ommitable)
+  - if the list is empty, a matlab shell is invoked via the shell command `matlab` 
+  
+See `TUTORIAL.md` on how to use the settings.
 
 ##  Issues
 

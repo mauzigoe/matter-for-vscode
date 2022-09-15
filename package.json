@@ -65,7 +65,8 @@
                 "pattern": "^(.+)/([^/]+)$",
                 "default": null
               }
-            }
+            },
+            "default": []
           }
         }
       }
